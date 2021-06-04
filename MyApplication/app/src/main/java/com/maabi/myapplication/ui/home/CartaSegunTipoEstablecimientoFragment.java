@@ -62,8 +62,8 @@ public class CartaSegunTipoEstablecimientoFragment extends Fragment {
     }
 
     private void cargarDatos() {
-        Toast.makeText(getContext(),getArguments().getString("establecimiento_tipo_denominacion"),
-               Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getContext(),getArguments().getString("establecimiento_tipo_denominacion"),
+        //       Toast.LENGTH_SHORT).show();
 
         ProductosService service=this.retrofit.create(ProductosService.class);
         Call<ProductosResults> called=service.obtenerProductos("tipo_establecimiento",getArguments().getInt("establecimiento_tipo_id"));
@@ -97,11 +97,13 @@ public class CartaSegunTipoEstablecimientoFragment extends Fragment {
                             JSONObject item=data.getJSONObject(i);
                             int id=item.getInt("id");
                             String full_denominacion=item.getString("full_denominacion");
-                            //String imagen_url=item.getString("imagen_url");
+                            double precio_pen=item.getDouble("precio_pen");
+                            String imagen_url=item.getString("imagen_url");
                             Productos p=new Productos();
                             p.setId(id);
                             p.setFull_denominacion(full_denominacion);
-                            //p.setImagen_url(imagen_url);
+                            p.setPrecio_pen(precio_pen);
+                            p.setImagen_url(imagen_url);
                             listaProductos.add(p);
                         }
 
@@ -142,14 +144,15 @@ public class CartaSegunTipoEstablecimientoFragment extends Fragment {
         @Override
         public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
             Productos p = dataset.get(position);
-           //older.nombreTextView.setText(p.getFull_denominacion());
+            holder.fullDenominacionTextView.setText(p.getFull_denominacion());
+            holder.precioPenTextView.setText(String.valueOf(p.getPrecio_pen()));
 
-            //Glide.with(context)
-            //        .load(p.getImagen_url())
-            //      .centerCrop()
-            //      .crossFade()
-            //      .diskCacheStrategy(DiskCacheStrategy.ALL)
-            //      .into(holder.fotoImageView);
+            Glide.with(context)
+                    .load(p.getImagen_url())
+                  .centerCrop()
+                  .crossFade()
+                  .diskCacheStrategy(DiskCacheStrategy.ALL)
+                  .into(holder.productoImagenImageView);
         }
 
         @Override
@@ -163,13 +166,16 @@ public class CartaSegunTipoEstablecimientoFragment extends Fragment {
         }
 
         public class ViewHolder extends RecyclerView.ViewHolder {
-            //rivate ImageView fotoImageView;
-            //rivate TextView nombreTextView;
-
+            //private ImageView fotoImageView;
+            private TextView fullDenominacionTextView;
+            private TextView precioPenTextView;
+            private ImageView productoImagenImageView;
             public ViewHolder(View itemView) {
                 super(itemView);
-                //fotoImageView = (ImageView) itemView.findViewById(R.id.imagen);
-                //nombreTextView = (TextView) itemView.findViewById(R.id.denominacion);
+                productoImagenImageView = (ImageView) itemView.findViewById(R.id.producto_imagen);
+                fullDenominacionTextView = (TextView) itemView.findViewById(R.id.full_denominacion);
+                precioPenTextView = (TextView) itemView.findViewById(R.id.precio_pen);
+
             }
         }
     }
