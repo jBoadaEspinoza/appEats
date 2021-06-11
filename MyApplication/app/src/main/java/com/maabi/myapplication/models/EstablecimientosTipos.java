@@ -28,5 +28,4 @@ public class EstablecimientosTipos {
     public void setImagen_url(String imagen_url) {
         this.imagen_url = imagen_url;
     }
-
 }

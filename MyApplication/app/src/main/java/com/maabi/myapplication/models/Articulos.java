@@ -1,11 +1,12 @@
 package com.maabi.myapplication.models;
 
-public class Productos {
+public class Articulos {
     private int id;
     private String full_denominacion;
     private double precio_pen;
     private int stock;
     private int tiempo_depacho_min;
+    private Establecimientos establecimiento;
     private String imagen_url;
 
     public int getId() {
@@ -46,6 +47,14 @@ public class Productos {
 
     public void setTiempo_depacho_min(int tiempo_depacho_min) {
         this.tiempo_depacho_min = tiempo_depacho_min;
+    }
+
+    public Establecimientos getEstablecimiento() {
+        return establecimiento;
+    }
+
+    public void setEstablecimiento(Establecimientos establecimiento) {
+        this.establecimiento = establecimiento;
     }
 
     public String getImagen_url() {

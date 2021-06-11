@@ -13,11 +13,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textStyle="bold"
-            android:textSize="25sp"
+            android:textSize="16sp"
             android:paddingBottom="10sp"
             android:paddingTop="10sp"
             android:paddingLeft="15sp"
-            android:text="Bienvenido, Jean"/>
+            android:text="Hola, Jean"/>
         <GridView
             android:id="@+id/gridView"
             android:layout_width="match_parent"

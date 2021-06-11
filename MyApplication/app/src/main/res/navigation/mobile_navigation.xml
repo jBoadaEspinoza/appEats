@@ -22,13 +22,23 @@
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.maabi.myapplication.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
-    <fragment
         android:id="@+id/cartaSegunTipoEstablecimientoFragment"
         android:name="com.maabi.myapplication.ui.home.CartaSegunTipoEstablecimientoFragment"
         android:label="fragment_carta_segun_tipo_establecimiento"
         tools:layout="@layout/fragment_carta_segun_tipo_establecimiento" />
+
+    <fragment
+        android:id="@+id/resumenOrdenesFragment"
+        android:name="com.maabi.myapplication.ui.home.ResumenOrdenesFragment"
+        android:label="fragment_resumen_ordenes"
+        tools:layout="@layout/fragment_resumen_ordenes" >
+        <action
+            android:id="@+id/action_resumenOrdenesFragment_to_direccionDeEntregaFragment"
+            app:destination="@id/direccionDeEntregaFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/direccionDeEntregaFragment"
+        android:name="com.maabi.myapplication.ui.home.DireccionDeEntregaFragment"
+        android:label="fragment_direccion_de_entrega"
+        tools:layout="@layout/fragment_direccion_de_entrega" />
 </navigation>

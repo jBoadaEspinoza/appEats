@@ -2,7 +2,7 @@ package com.maabi.myapplication.models;
 
 import com.google.gson.Gson;
 
-public class ProductosResults {
+public class ArticulosResults {
     private Object response;
 
     public String getResponse() {

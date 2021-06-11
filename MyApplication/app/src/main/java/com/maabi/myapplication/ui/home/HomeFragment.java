@@ -5,6 +5,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -25,13 +28,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.maabi.myapplication.MainActivity;
 import com.maabi.myapplication.R;
 import com.maabi.myapplication.interfaces.EstablecimientosTiposService;
 import com.maabi.myapplication.models.EstablecimientosTipos;
 import com.maabi.myapplication.models.EstablecimientosTiposResults;
-import com.maabi.myapplication.ui.dashboard.DashboardFragment;
 
+
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -50,21 +55,35 @@ import static android.content.ContentValues.TAG;
 public class HomeFragment extends Fragment {
     private Retrofit retrofit;
     private GridView gridView;
+    private MainActivity mainActivity;
+    Menu menuAntojos;
     List<EstablecimientosTipos> listaPublica;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-
         View root = inflater.inflate(R.layout.fragment_home, container, false);
+
+        return root;
+    }
+    @Override
+    public void onPrepareOptionsMenu(@NonNull @NotNull Menu menu) {
+        menu.findItem(R.id.navigation_top_cart).setVisible(true);
+        menu.findItem(R.id.action_search).setVisible(false);
+
+        super.onPrepareOptionsMenu(menu);
+    }
+    @Override
+    public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
         this.retrofit=new Retrofit.Builder()
                 .baseUrl(MainActivity.API_BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        gridView=root.findViewById(R.id.gridView);
+        gridView=view.findViewById(R.id.gridView);
         cargarDatos();
-        return root;
     }
+
 
     private void cargarDatos() {
         EstablecimientosTiposService service=this.retrofit.create(EstablecimientosTiposService.class);
@@ -112,8 +131,6 @@ public class HomeFragment extends Fragment {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-
-
                 }else{
                     Log.i(TAG, "onResponse:"+response.errorBody());
                 }
@@ -152,7 +169,6 @@ public class HomeFragment extends Fragment {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-
             View view;
             view= LayoutInflater.from(context).inflate(R.layout.item_establecimiento_tipo,null);
             TextView txtDenominacion = view.findViewById(R.id.denominacion);
@@ -164,9 +180,7 @@ public class HomeFragment extends Fragment {
                     .crossFade()
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(ivImagen);
-
             return view;
-
         }
     }
 }
