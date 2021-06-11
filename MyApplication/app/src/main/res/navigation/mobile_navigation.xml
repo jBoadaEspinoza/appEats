@@ -35,10 +35,18 @@
         <action
             android:id="@+id/action_resumenOrdenesFragment_to_direccionDeEntregaFragment"
             app:destination="@id/direccionDeEntregaFragment" />
+        <action
+            android:id="@+id/action_resumenOrdenesFragment_to_finalizaOrdenFragment"
+            app:destination="@id/finalizaOrdenFragment" />
     </fragment>
     <fragment
         android:id="@+id/direccionDeEntregaFragment"
         android:name="com.maabi.myapplication.ui.home.DireccionDeEntregaFragment"
         android:label="fragment_direccion_de_entrega"
         tools:layout="@layout/fragment_direccion_de_entrega" />
+    <fragment
+        android:id="@+id/finalizaOrdenFragment"
+        android:name="com.maabi.myapplication.ui.home.FinalizaOrdenFragment"
+        android:label="fragment_finaliza_orden"
+        tools:layout="@layout/fragment_finaliza_orden" />
 </navigation>

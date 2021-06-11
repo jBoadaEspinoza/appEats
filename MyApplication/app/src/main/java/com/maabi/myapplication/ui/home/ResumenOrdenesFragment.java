@@ -35,24 +35,40 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.maabi.myapplication.MainActivity;
 import com.maabi.myapplication.R;
+import com.maabi.myapplication.interfaces.PedidosService;
 import com.maabi.myapplication.models.Articulos;
 import com.maabi.myapplication.models.Establecimientos;
+import com.maabi.myapplication.models.PedidosResults;
 import com.maabi.myapplication.models.PreOrdenes;
 import com.maabi.myapplication.models.PreOrdenesDetalles;
 
 import org.jetbrains.annotations.NotNull;
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Text;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
+
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 import static android.content.ContentValues.TAG;
 
@@ -69,7 +85,7 @@ public class ResumenOrdenesFragment extends Fragment {
     private TextView txtTotalAPagar;
     private MainActivity mainActivity;
     private View rootView;
-
+    private Retrofit retrofit;
     PreOrdenes preOrdenes;
     int hour,minute;
     public ResumenOrdenesFragment() {
@@ -199,6 +215,55 @@ public class ResumenOrdenesFragment extends Fragment {
             btnPedirAhora.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View view) {
+
+
+
+                    retrofit=new Retrofit.Builder()
+                            .baseUrl(MainActivity.API_BASE_URL)
+                            .addConverterFactory(ScalarsConverterFactory.create())
+                            .addConverterFactory(GsonConverterFactory.create())
+                            .build();
+                    PedidosService pedidosService=retrofit.create(PedidosService.class);
+                    Map<String, Object> map = new HashMap();
+                    map.put("cliente_id",1);
+                    map.put("entrega_lat",preOrdenes.getEntrega_lat());
+                    map.put("entrega_lng",preOrdenes.getEntrega_lng());
+                    map.put("entrega_referencia",preOrdenes.getEntrega_referencia());
+                    map.put("detalles",new Gson().toJson(listaPreOrdenesDetalle).toString());
+                    Log.i(TAG,"onResponse:"+new Gson().toJson(preOrdenes).toString());
+                    RequestBody requestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), (new JSONObject(map)).toString());
+                    Call<PedidosResults> called=pedidosService.insertar(requestBody);
+
+                    called.enqueue(new Callback<PedidosResults>() {
+                        @Override
+                        public void onResponse(Call<PedidosResults> call, Response<PedidosResults> response) {
+                            if(response.isSuccessful()){
+                                PedidosResults respuesta=response.body();
+                                try {
+
+                                    JSONObject jsonObject = new JSONObject(respuesta.getResponse());
+                                    boolean success = jsonObject.getBoolean("success");
+                                    if(!success){
+                                        String msg = jsonObject.getString("msg");
+                                        Log.i(TAG, "onResponse:"+msg);
+                                        return;
+                                    }
+                                    JSONObject data=jsonObject.getJSONObject("data");
+                                    int id=data.getInt("id");
+                                    Navigation.findNavController(view).navigate(R.id.finalizaOrdenFragment);
+
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }else{
+                                Log.i(TAG, "onResponse:"+response.errorBody());
+                            }
+                        }
+                        @Override
+                        public void onFailure(Call<PedidosResults> call, Throwable t) {
+                            Log.i(TAG, "onFailure:"+t.getMessage());
+                        }
+                    });
 
                 }
             });
