@@ -65,6 +65,7 @@ public class FinalizaOrdenFragment extends Fragment {
         View rootView= inflater.inflate(R.layout.fragment_finaliza_orden, container, false);
         MainActivity mainActivity=(MainActivity)getActivity();
         mainActivity.getSupportActionBar().hide();
+
         return rootView;
     }
 }

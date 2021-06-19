@@ -1,5 +1,6 @@
 package com.maabi.myapplication.ui.home;
 
+import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -61,27 +63,39 @@ public class HomeFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_home, container, false);
 
+        View root = inflater.inflate(R.layout.fragment_home, container, false);
         return root;
+
     }
-    @Override
     public void onPrepareOptionsMenu(@NonNull @NotNull Menu menu) {
         menu.findItem(R.id.navigation_top_cart).setVisible(true);
         menu.findItem(R.id.action_search).setVisible(false);
-
         super.onPrepareOptionsMenu(menu);
+
     }
+
+    @Override
+    public void onAttach(@NonNull @NotNull Context context) {
+        super.onAttach(context);
+    }
+
     @Override
     public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        MainActivity mainActivity=(MainActivity) getActivity();
+        if(mainActivity.getSupportActionBar()!=null){
+            mainActivity.getSupportActionBar().setTitle(R.string.app_name_title);
+            mainActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        }
         this.retrofit=new Retrofit.Builder()
                 .baseUrl(MainActivity.API_BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
+
         gridView=view.findViewById(R.id.gridView);
         cargarDatos();
+
     }
 
 

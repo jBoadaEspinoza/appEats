@@ -3,9 +3,11 @@ package com.maabi.myapplication.models;
 public class Articulos {
     private int id;
     private String full_denominacion;
+    private String descripcion;
     private double precio_pen;
     private int stock;
     private int tiempo_depacho_min;
+    private int tiempo_aproximada_entrega_min;
     private Establecimientos establecimiento;
     private String imagen_url;
 
@@ -23,6 +25,14 @@ public class Articulos {
 
     public void setFull_denominacion(String full_denominacion) {
         this.full_denominacion = full_denominacion;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     public double getPrecio_pen() {
@@ -47,6 +57,14 @@ public class Articulos {
 
     public void setTiempo_depacho_min(int tiempo_depacho_min) {
         this.tiempo_depacho_min = tiempo_depacho_min;
+    }
+
+    public int getTiempo_aproximada_entrega_min() {
+        return tiempo_aproximada_entrega_min;
+    }
+
+    public void setTiempo_aproximada_entrega_min(int tiempo_aproximada_entrega_min) {
+        this.tiempo_aproximada_entrega_min = tiempo_aproximada_entrega_min;
     }
 
     public Establecimientos getEstablecimiento() {

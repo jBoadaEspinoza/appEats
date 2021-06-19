@@ -49,78 +49,45 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="5dp"
+                        android:textStyle="bold"
                         android:text="DIRECCION DE ENTREGA"
-                        android:textColor="#BEBCBC" />
+                        android:textColor="@color/gris_humo" />
 
                     <View
                         android:layout_width="fill_parent"
                         android:layout_height="1dp"
                         android:layout_marginBottom="5dp"
-                        android:background="#C5C4C4" />
-
-                    <Button
-                        android:id="@+id/btnDireccionDeEntrega"
+                        android:background="@color/gris_humo" />
+                    <LinearLayout
+                        android:id="@+id/lyUbicacion"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Av. los portales de paracas 192 san martin paracas" />
-                </androidx.appcompat.widget.LinearLayoutCompat>
-
-                <androidx.appcompat.widget.LinearLayoutCompat
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginRight="5dp"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp"
-                        android:text="HORA DE ENTREGA"
-                        android:textColor="#BEBCBC" />
-
-                    <View
-                        android:layout_width="fill_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginBottom="5dp"
-                        android:background="#C5C4C4" />
-
-                    <androidx.appcompat.widget.LinearLayoutCompat
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:clickable="true"
                         android:orientation="horizontal">
-
-                        <androidx.appcompat.widget.LinearLayoutCompat
+                        <ImageView
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:layout_gravity="top"
+                            android:src="@drawable/ic_baseline_emoji_flags_24"/>
+                        <TextView
+                            android:id="@+id/txtDireccionEntrega"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Lo antes posible"
-                                android:textColor="@color/purple_700"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:id="@+id/txtHoraEntrega"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text=""
-                                android:textColor="#C5C4C4" />
-                        </androidx.appcompat.widget.LinearLayoutCompat>
-
-                        <Switch
-                            android:id="@+id/stSeleccionHora"
-                            android:layout_width="80dp"
+                            android:layout_marginLeft="5dp"
+                            android:textSize="15dp"
+                            android:gravity="center_vertical"
+                            android:textColor="@color/gris_claro"
+                            android:text="¿Donde quieres recibir el pedido?"/>
+                        <ImageView
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:checked="true"
-                            android:gravity="right" />
-                    </androidx.appcompat.widget.LinearLayoutCompat>
-                </androidx.appcompat.widget.LinearLayoutCompat>
+                            android:layout_gravity="center_horizontal"
+                            android:src="@drawable/ic_baseline_keyboard_arrow_right_24"/>
+                    </LinearLayout>
 
+                </androidx.appcompat.widget.LinearLayoutCompat>
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -134,49 +101,97 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="5dp"
-                        android:text="FORMA DE PAGO"
-                        android:textColor="#BEBCBC" />
+                        android:textStyle="bold"
+                        android:text="HORA DE ENTREGA"
+                        android:textColor="@color/gris_humo" />
 
                     <View
                         android:layout_width="fill_parent"
                         android:layout_height="1dp"
                         android:layout_marginBottom="5dp"
-                        android:background="#C5C4C4" />
-
-                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:background="@color/gris_humo" />
+                    <LinearLayout
+                        android:id="@+id/lyHoraDeEntrega"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <Spinner
-                            android:id="@+id/spFormaDePago"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-
-                        </Spinner>
-
-                        <androidx.appcompat.widget.LinearLayoutCompat
-                            android:layout_width="match_parent"
+                        android:layout_marginTop="15dp"
+                        android:clickable="true"
+                        android:orientation="horizontal">
+                        <ImageView
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:layout_gravity="top"
+                            android:src="@drawable/ic_baseline_access_time_24"/>
+                        <TextView
+                            android:id="@+id/txtHoraEntrega"
+                            android:layout_width="0dp"
+                            android:layout_marginLeft="5dp"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal">
+                            android:layout_weight="1"
+                            android:textSize="15dp"
+                            android:textColor="@color/gris_claro"
+                            android:gravity="center_vertical"
+                            android:text="¿A que hora deseas recibir este pedido?"/>
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:src="@drawable/ic_baseline_keyboard_arrow_right_24"/>
+                    </LinearLayout>
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="5dp"
-                                android:text="Pagaré con "
-                                android:textColor="#C5C4C4" />
-
-                            <EditText
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="5dp"
-                                android:layout_weight="1"
-                                android:hint="Ingrese monto a pagar" />
-                        </androidx.appcompat.widget.LinearLayoutCompat>
-                    </androidx.appcompat.widget.LinearLayoutCompat>
                 </androidx.appcompat.widget.LinearLayoutCompat>
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="vertical">
 
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:textStyle="bold"
+                        android:text="FORMA DE PAGO"
+                        android:textColor="@color/gris_humo" />
+
+                    <View
+                        android:layout_width="fill_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginBottom="5dp"
+                        android:background="@color/gris_humo" />
+                    <LinearLayout
+                        android:id="@+id/lyFormaDePago"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:clickable="true"
+                        android:orientation="horizontal">
+                        <ImageView
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:layout_gravity="top"
+                            android:src="@drawable/ic_baseline_attach_money_24"/>
+                        <TextView
+                            android:id="@+id/txtFormaDePago"
+                            android:layout_width="0dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textColor="@color/gris_claro"
+                            android:gravity="center_vertical"
+                            android:textSize="15dp"
+                            android:text="¿Como pagaras este servicio?"/>
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:src="@drawable/ic_baseline_keyboard_arrow_right_24"/>
+                    </LinearLayout>
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

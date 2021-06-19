@@ -10,14 +10,11 @@
             android:id="@+id/txtNombreComercialResumen"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="#BEBCBC"
+            android:textStyle="bold"
+            android:textColor="@color/gris_humo"
             android:layout_marginTop="15dp"
             android:text="Nombre comercial del establecimiento"
             />
-        <View
-            android:layout_width="fill_parent"
-            android:layout_height="1dp"
-            android:background="#C5C4C4"/>
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvArticulosDeEstablecimientoResumen"
             android:layout_width="match_parent"

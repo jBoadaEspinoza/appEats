@@ -1,8 +1,11 @@
 package com.maabi.myapplication.models;
 
+import android.text.Editable;
+
 public class PreOrdenesDetalles {
     private int articulo_id;
     private String articulo_full_denominacion;
+    private int articulo_tiempo_despacho_min;
     private int cantidad;
     private double precio_unitario_pen;
     private String sugerencias;
@@ -23,6 +26,14 @@ public class PreOrdenesDetalles {
 
     public void setArticulo_full_denominacion(String articulo_full_denominacion) {
         this.articulo_full_denominacion = articulo_full_denominacion;
+    }
+
+    public int getArticulo_tiempo_despacho_min() {
+        return articulo_tiempo_despacho_min;
+    }
+
+    public void setArticulo_tiempo_despacho_min(int articulo_tiempo_despacho_min) {
+        this.articulo_tiempo_despacho_min = articulo_tiempo_despacho_min;
     }
 
     public int getCantidad() {

@@ -25,7 +25,11 @@
         android:id="@+id/cartaSegunTipoEstablecimientoFragment"
         android:name="com.maabi.myapplication.ui.home.CartaSegunTipoEstablecimientoFragment"
         android:label="fragment_carta_segun_tipo_establecimiento"
-        tools:layout="@layout/fragment_carta_segun_tipo_establecimiento" />
+        tools:layout="@layout/fragment_carta_segun_tipo_establecimiento" >
+        <action
+            android:id="@+id/action_cartaSegunTipoEstablecimientoFragment_to_articuloSeleccionadoFragment"
+            app:destination="@id/articuloSeleccionadoFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/resumenOrdenesFragment"
@@ -49,4 +53,9 @@
         android:name="com.maabi.myapplication.ui.home.FinalizaOrdenFragment"
         android:label="fragment_finaliza_orden"
         tools:layout="@layout/fragment_finaliza_orden" />
+    <fragment
+        android:id="@+id/articuloSeleccionadoFragment"
+        android:name="com.maabi.myapplication.ui.home.ArticuloSeleccionadoFragment"
+        android:label="fragment_articulo_seleccionado"
+        tools:layout="@layout/fragment_articulo_seleccionado" />
 </navigation>

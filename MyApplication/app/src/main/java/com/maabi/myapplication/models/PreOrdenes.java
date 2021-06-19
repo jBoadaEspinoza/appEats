@@ -5,9 +5,9 @@ public class PreOrdenes {
     private double entrega_lat;
     private double entrega_lng;
     private String entrega_referencia;
-    private String entrega_hora;
-    private int tipo_pago_id;
-    private double monto_recibido;
+    private int forma_de_pago_id;
+    private double forma_de_pago_monto_a_entregar;
+    private String hora_preparacion_inicio;
 
     public int getCliente_id() {
         return cliente_id;
@@ -41,27 +41,27 @@ public class PreOrdenes {
         this.entrega_referencia = entrega_referencia;
     }
 
-    public String getEntrega_hora() {
-        return entrega_hora;
+    public int getForma_de_pago_id() {
+        return forma_de_pago_id;
     }
 
-    public void setEntrega_hora(String entrega_hora) {
-        this.entrega_hora = entrega_hora;
+    public void setForma_de_pago_id(int forma_de_pago_id) {
+        this.forma_de_pago_id = forma_de_pago_id;
     }
 
-    public int getTipo_pago_id() {
-        return tipo_pago_id;
+    public double getForma_de_pago_monto_a_entregar() {
+        return forma_de_pago_monto_a_entregar;
     }
 
-    public void setTipo_pago_id(int tipo_pago_id) {
-        this.tipo_pago_id = tipo_pago_id;
+    public void setForma_de_pago_monto_a_entregar(double forma_de_pago_monto_a_entregar) {
+        this.forma_de_pago_monto_a_entregar = forma_de_pago_monto_a_entregar;
     }
 
-    public double getMonto_recibido() {
-        return monto_recibido;
+    public String getHora_preparacion_inicio() {
+        return hora_preparacion_inicio;
     }
 
-    public void setMonto_recibido(double monto_recibido) {
-        this.monto_recibido = monto_recibido;
+    public void setHora_preparacion_inicio(String hora_preparacion_inicio) {
+        this.hora_preparacion_inicio = hora_preparacion_inicio;
     }
 }

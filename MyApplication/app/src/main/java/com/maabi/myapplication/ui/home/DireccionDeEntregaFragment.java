@@ -74,9 +74,10 @@ public class DireccionDeEntregaFragment extends Fragment implements OnMapReadyCa
     private long UPDATE_INTERVAL = 5 * 1000;  /* 10 secs */
     private long FASTEST_INTERVAL = 1000; /* 2 sec */
     Menu menuAntojos;
-    Marker marker;
+
     MainActivity mainActivity;
     PreOrdenes preOrdenes;
+    Marker marker;
     GoogleMap mMap;
     Location location;
     float zoomLevel = 19.0f;
@@ -207,7 +208,6 @@ public class DireccionDeEntregaFragment extends Fragment implements OnMapReadyCa
 
     public void onLocationChanged(Location location) {
         this.location=location;
-
     }
     @Override
     public void onCreate(Bundle savedInstanceState) {

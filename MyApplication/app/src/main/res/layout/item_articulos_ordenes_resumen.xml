@@ -4,6 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="@color/gris_humo"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -68,8 +72,4 @@
             android:textColor="@color/white"
             android:textStyle="bold" />
     </LinearLayout>
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="1dp"
-        android:background="#C5C4C4"/>
 </LinearLayout>

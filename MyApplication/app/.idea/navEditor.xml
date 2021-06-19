@@ -8,6 +8,18 @@
             <LayoutPositions>
               <option name="myPositions">
                 <map>
+                  <entry key="articuloSeleccionadoFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="400" />
+                            <option name="y" value="531" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="cartaSegunTipoEstablecimientoFragment">
                     <value>
                       <LayoutPositions>
@@ -89,6 +101,11 @@
                         <option name="myPositions">
                           <map>
                             <entry key="action_resumenOrdenesFragment_to_direccionDeEntregaFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_resumenOrdenesFragment_to_finalizaOrdenFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
