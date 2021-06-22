@@ -1,6 +1,7 @@
 package com.maabi.myapplication;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Spannable;
@@ -42,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
         setContentView(R.layout.activity_main);
         toolbar=findViewById(R.id.toolBar);
         toolbar.setTitleTextColor(Color.parseColor("#FE2E64"));

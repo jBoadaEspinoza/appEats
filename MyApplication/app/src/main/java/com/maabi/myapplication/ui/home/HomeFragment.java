@@ -3,6 +3,7 @@ package com.maabi.myapplication.ui.home;
 import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -31,11 +32,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.maabi.myapplication.MainActivity;
 import com.maabi.myapplication.R;
 import com.maabi.myapplication.interfaces.EstablecimientosTiposService;
+import com.maabi.myapplication.models.Clientes;
 import com.maabi.myapplication.models.EstablecimientosTipos;
 import com.maabi.myapplication.models.EstablecimientosTiposResults;
+import com.maabi.myapplication.models.PreOrdenes;
 
 
 import org.jetbrains.annotations.NotNull;
@@ -58,9 +64,10 @@ public class HomeFragment extends Fragment {
     private Retrofit retrofit;
     private GridView gridView;
     private MainActivity mainActivity;
+    private TextView txtBienvenida;
     Menu menuAntojos;
     List<EstablecimientosTipos> listaPublica;
-
+    Clientes cliente;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
@@ -88,6 +95,19 @@ public class HomeFragment extends Fragment {
             mainActivity.getSupportActionBar().setTitle(R.string.app_name_title);
             mainActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         }
+
+        SharedPreferences preferences= getContext().getSharedPreferences("mis_preferencias", Context.MODE_PRIVATE);
+        String clienteJSON=preferences.getString("cliente","");
+
+        if(!clienteJSON.equals("")){
+            JsonParser jsonParser=new JsonParser();
+            Object obj=jsonParser.parse(clienteJSON);
+            JsonObject jsonObject=(JsonObject) obj;
+            cliente=new Gson().fromJson(jsonObject, Clientes.class);
+            txtBienvenida=(TextView) view.findViewById(R.id.txtBienvenida);
+            txtBienvenida.setText("Hola, "+cliente.getNombres());
+        }
+
         this.retrofit=new Retrofit.Builder()
                 .baseUrl(MainActivity.API_BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())

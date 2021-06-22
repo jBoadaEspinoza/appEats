@@ -14,4 +14,8 @@ public interface AfiliacionService {
     @Headers({"Accept-Encoding: gzip, deflate","Accept:application/json", "Content-Type:application/json;"})
     @POST("afiliacion")
     Call<AfiliacionResults> enviarCodigo(@Query("action") String validar_celular, @Body RequestBody body);
+
+    @Headers({"Accept-Encoding: gzip, deflate","Accept:application/json", "Content-Type:application/json;"})
+    @POST("afiliacion")
+    Call<AfiliacionResults> nuevoRegistro(@Body RequestBody body);
 }

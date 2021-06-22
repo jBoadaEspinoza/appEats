@@ -2,6 +2,9 @@ package com.maabi.myapplication;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,9 +23,81 @@ public class MiCodigoEs extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mi_codigo_es);
         txtCifra1=(EditText)findViewById(R.id.txtCifra1);
+        txtCifra1.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if(editable.length()==1){
+                    txtCifra2.requestFocus();
+                }
+            }
+        });
         txtCifra2=(EditText)findViewById(R.id.txtCifra2);
+        txtCifra2.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if(editable.length()==1){
+                    txtCifra3.requestFocus();
+                }
+            }
+        });
         txtCifra3=(EditText)findViewById(R.id.txtCifra3);
-        txtCifra4=(EditText)findViewById(R.id.txtCifra4);
+        txtCifra3.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if(editable.length()==1){
+                    txtCifra4.requestFocus();
+                }
+            }
+        });
+        txtCifra4 = (EditText) findViewById(R.id.txtCifra4);
+        txtCifra4.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if(editable.length()==1){
+                    btnMiCodigoEsSiguiente.requestFocus();
+                }
+            }
+        });
         btnMiCodigoEsSiguiente=(Button) findViewById(R.id.btnMiCodigoEsSiguiente);
         btnMiCodigoEsSiguiente.setOnClickListener(new View.OnClickListener() {
             @Override
