@@ -10,7 +10,7 @@
     android:layout_marginBottom="5dp"
     android:background="#FDFDFD"
     android:orientation="vertical"
-    tools:context=".ui.notifications.NotificationsFragment">
+    tools:context=".ui.mihistorial.MiHistorialFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

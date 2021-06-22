@@ -34,6 +34,7 @@ public class Splash extends Activity {
                     Intent intent=new Intent(Splash.this,MainActivity.class);
                     startActivity(intent);
                     finish();
+
                 }else{
                     Intent intent=new Intent(Splash.this,MiNumero.class);
                     startActivity(intent);

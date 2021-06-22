@@ -13,13 +13,20 @@
         <action
             android:id="@+id/action_navigation_home_to_cartaSegunTipoEstablecimientoFragment"
             app:destination="@id/cartaSegunTipoEstablecimientoFragment" />
+
     </fragment>
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.maabi.myapplication.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        android:id="@+id/navigation_historial_de_compra"
+        android:name="com.maabi.myapplication.ui.mihistorial.MiHistorialFragment"
+        android:label="Mi historial"
+        tools:layout="@layout/fragment_mi_historial_de_compra" />
+
+    <fragment
+        android:id="@+id/navigation_perfil"
+        android:name="com.maabi.myapplication.ui.miperfil.MiPerfilFragment"
+        android:label="Mi perfil"
+        tools:layout="@layout/fragment_mi_historial_de_compra" />
 
     <fragment
         android:id="@+id/cartaSegunTipoEstablecimientoFragment"

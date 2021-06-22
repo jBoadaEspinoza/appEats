@@ -29,6 +29,15 @@
                             <option name="y" value="229" />
                           </Point>
                         </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_cartaSegunTipoEstablecimientoFragment_to_articuloSeleccionadoFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
                       </LayoutPositions>
                     </value>
                   </entry>
@@ -56,25 +65,13 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="navigation_dashboard">
-                    <value>
-                      <LayoutPositions>
-                        <option name="myPosition">
-                          <Point>
-                            <option name="x" value="-54" />
-                            <option name="y" value="-44" />
-                          </Point>
-                        </option>
-                      </LayoutPositions>
-                    </value>
-                  </entry>
                   <entry key="navigation_home">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-189" />
-                            <option name="y" value="296" />
+                            <option name="x" value="-318" />
+                            <option name="y" value="275" />
                           </Point>
                         </option>
                         <option name="myPositions">
@@ -85,6 +82,30 @@
                               </value>
                             </entry>
                           </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="navigation_mi_historial">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-320" />
+                            <option name="y" value="-134" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="navigation_mi_perfil">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-312" />
+                            <option name="y" value="-486" />
+                          </Point>
                         </option>
                       </LayoutPositions>
                     </value>

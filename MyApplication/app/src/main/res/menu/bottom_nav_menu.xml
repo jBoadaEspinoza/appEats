@@ -7,13 +7,13 @@
         android:title="@string/title_home" />
 
     <item
-        android:id="@+id/navigation_dashboard"
+        android:id="@+id/navigation_historial_de_compra"
         android:icon="@drawable/ic_baseline_calendar_today_24"
-        android:title="@string/title_dashboard" />
+        android:title="Mi historial de compras" />
 
     <item
-        android:id="@+id/navigation_notifications"
-        android:icon="@drawable/ic_notifications_black_24dp"
-        android:title="@string/title_notifications" />
+        android:id="@+id/navigation_perfil"
+        android:icon="@drawable/ic_baseline_person_24"
+        android:title="Mi perfil" />
 
 </menu>
