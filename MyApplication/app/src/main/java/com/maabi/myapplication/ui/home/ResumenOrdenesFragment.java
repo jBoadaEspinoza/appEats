@@ -51,6 +51,7 @@ import com.maabi.myapplication.interfaces.DeliveryService;
 import com.maabi.myapplication.interfaces.PedidosService;
 import com.maabi.myapplication.models.Articulos;
 import com.maabi.myapplication.models.ArticulosResults;
+import com.maabi.myapplication.models.Clientes;
 import com.maabi.myapplication.models.DeliveryResults;
 import com.maabi.myapplication.models.Establecimientos;
 import com.maabi.myapplication.models.PedidosResults;
@@ -136,8 +137,6 @@ public class ResumenOrdenesFragment extends Fragment {
                     bottomNavigationView.setVisibility(View.VISIBLE);
                 }
                 NavHostFragment.findNavController(this).navigate(R.id.navigation_home);
-
-
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -155,7 +154,6 @@ public class ResumenOrdenesFragment extends Fragment {
             @Override
             public boolean onKey(View view, int keyCode, KeyEvent event) {
                 if(keyCode == KeyEvent.KEYCODE_BACK){
-                    Log.i(TAG,"onResponse:"+"hola");
                     BottomNavigationView bottomNavigationView=(BottomNavigationView) mainActivity.findViewById(R.id.nav_view);
                     if(bottomNavigationView.getVisibility()==View.GONE){
                         bottomNavigationView.setVisibility(View.VISIBLE);
@@ -212,20 +210,22 @@ public class ResumenOrdenesFragment extends Fragment {
             List<Establecimientos> listaEstablecimientos=new ArrayList<>();
             List<PreOrdenesDetalles> listaPreOrdenesDetalle=new ArrayList<>();
             for(int i=0;i<jsonArray.size();i++){
+
                 PreOrdenesDetalles item=new Gson().fromJson(jsonArray.get(i).getAsJsonObject(),PreOrdenesDetalles.class);
                 listaPreOrdenesDetalle.add(item);
+
                 Establecimientos establecimientos=new Establecimientos();
                 establecimientos.setId(item.getEstablecimiento_id());
                 establecimientos.setNombre_comercial(item.getEstablecimiento_nombre_comercial());
                 boolean esta=false;
                 for(int j=0;j<listaEstablecimientos.size();j++){
+                    Log.i(TAG,"EstablecimientoAgregado:"+listaEstablecimientos.get(j).getId()+"=="+item.getEstablecimiento_id());
                     if(listaEstablecimientos.get(j).getId()==item.getEstablecimiento_id()){
                         esta=true;
                     }
                 }
                 if(!esta){
                     listaEstablecimientos.add(establecimientos);
-
                     //debemos de obtener lat y lng de cliente;
                     double lat_entrega=preOrdenes.getEntrega_lat();
                     double lng_entrega=preOrdenes.getEntrega_lng();
@@ -282,8 +282,8 @@ public class ResumenOrdenesFragment extends Fragment {
             }
 
             gridViewEstablecimientosResumen=view.findViewById(R.id.gridViewEstablecimentosResumen);
-            EstablecimientosResumenAdaptador establecimientosResumenAdaptador=new EstablecimientosResumenAdaptador(listaEstablecimientos,listaPreOrdenesDetalle,getContext());
-            gridViewEstablecimientosResumen.setAdapter(establecimientosResumenAdaptador);
+
+            gridViewEstablecimientosResumen.setAdapter(new EstablecimientosResumenAdaptador(listaEstablecimientos,listaPreOrdenesDetalle,getContext()));
 
             btnDireccionDeEntrega=(LinearLayout) view.findViewById(R.id.lyUbicacion);
             btnDireccionDeEntrega.setOnClickListener(new View.OnClickListener() {
@@ -293,12 +293,12 @@ public class ResumenOrdenesFragment extends Fragment {
                 }
             });
 
-
             txtHoraEntrega=(TextView) view.findViewById(R.id.txtHoraEntrega);
             btnHoraDeEntrega=(LinearLayout) view.findViewById(R.id.lyHoraDeEntrega);
             btnHoraDeEntrega.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+
                     AlertDialog.Builder builderSingle = new AlertDialog.Builder(getActivity());
                     builderSingle.setIcon(R.drawable.ic_baseline_access_time_24);
                     builderSingle.setTitle("Selecciona una opcion de entrega:");
@@ -307,6 +307,7 @@ public class ResumenOrdenesFragment extends Fragment {
                     arrayAdapter.add("Lo antes posible");
                     arrayAdapter.add("Indicar la hora de entrega");
                     builderSingle.setAdapter(arrayAdapter, new DialogInterface.OnClickListener() {
+
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             String strName = arrayAdapter.getItem(which);
@@ -332,6 +333,7 @@ public class ResumenOrdenesFragment extends Fragment {
                     builderSingle.show();
                 }
             });
+
             txtFormaDePago=(TextView) view.findViewById(R.id.txtFormaDePago);
             btnFormaDePago=(LinearLayout) view.findViewById(R.id.lyFormaDePago);
             btnFormaDePago.setOnClickListener(new View.OnClickListener() {
@@ -384,20 +386,48 @@ public class ResumenOrdenesFragment extends Fragment {
             btnPedirAhora.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View view) {
+                    if(preOrdenes.getEntrega_referencia()==null){
+                        Toast.makeText(getContext(),"Indique el lugar de entrega",
+                                Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    if(preOrdenes.getHora_preparacion_inicio()==null){
+                        Toast.makeText(getContext(),"Indique la hora de entrega",
+                                Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    if(preOrdenes.getForma_de_pago_id()==0){
+                        Toast.makeText(getContext(),"Indique la forma de pago",
+                                Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                     retrofit=new Retrofit.Builder()
                             .baseUrl(MainActivity.API_BASE_URL)
                             .addConverterFactory(ScalarsConverterFactory.create())
                             .addConverterFactory(GsonConverterFactory.create())
                             .build();
                     PedidosService pedidosService=retrofit.create(PedidosService.class);
+                    SharedPreferences preferences= getContext().getSharedPreferences("mis_preferencias", Context.MODE_PRIVATE);
+                    String clienteJSON=preferences.getString("cliente","");
+
+                    Clientes cliente=null;
+                    if(!clienteJSON.equals("")){
+                        JsonParser jsonParser=new JsonParser();
+                        Object obj=jsonParser.parse(clienteJSON);
+                        JsonObject jsonObject=(JsonObject) obj;
+                        cliente=new Gson().fromJson(jsonObject, Clientes.class);
+                    }
+
                     Map<String, Object> map = new HashMap();
-                    map.put("cliente_id",1);
+                    map.put("cliente_id",cliente.getId());
                     map.put("entrega_lat",preOrdenes.getEntrega_lat());
                     map.put("entrega_lng",preOrdenes.getEntrega_lng());
                     map.put("entrega_referencia",preOrdenes.getEntrega_referencia());
                     map.put("forma_de_pago_id",preOrdenes.getForma_de_pago_id());
                     map.put("forma_de_pago_monto_a_entregar",preOrdenes.getForma_de_pago_monto_a_entregar());
                     map.put("hora_preparacion_inicio",preOrdenes.getHora_preparacion_inicio());
+                    map.put("importe_productos_pen",totalImporte);
+                    map.put("importe_delivery_pen",costoDelivery);
                     map.put("detalles",new Gson().toJson(listaPreOrdenesDetalle).toString());
                     Log.i(TAG,"onResponse:"+new Gson().toJson(preOrdenes).toString());
                     Log.i(TAG,"onResponse:"+new Gson().toJson(listaPreOrdenesDetalle).toString());
@@ -446,7 +476,6 @@ public class ResumenOrdenesFragment extends Fragment {
     public class EstablecimientosResumenAdaptador extends BaseAdapter{
         List<Establecimientos> listaEstablecimientos;
         List<PreOrdenesDetalles> listaPreOrdenesDetalles;
-        RecyclerView rvItemArticulosResumen;
         Context context;
         public EstablecimientosResumenAdaptador(List<Establecimientos> listaEstablecimientos,List<PreOrdenesDetalles> listaPreOrdenesDetalles,Context context){
             this.listaEstablecimientos=listaEstablecimientos;
@@ -466,35 +495,47 @@ public class ResumenOrdenesFragment extends Fragment {
 
         @Override
         public long getItemId(int position) {
-            return position;
+            return 0;
         }
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent){
-
+            ViewHolder holder=null;
             if (convertView == null) {
-                LayoutInflater inflater= (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                convertView=inflater.inflate(R.layout.item_establecimiento_resumen,parent,false);
+
+                convertView = LayoutInflater.from(context).inflate(R.layout.item_establecimiento_resumen, parent, false);
+
+                holder = new ViewHolder();
+                holder.txtNombreComercialResumen = convertView.findViewById(R.id.txtNombreComercialResumen);
+                holder.rvItemArticulosResumen = convertView.findViewById(R.id.rvArticulosDeEstablecimientoResumen);
+                convertView.setTag(holder);
+
+            }else{
+                holder=(ViewHolder)convertView.getTag();
             }
 
-            TextView txtNombreComercialResumen = convertView.findViewById(R.id.txtNombreComercialResumen);
-            txtNombreComercialResumen.setText("PEDIR A "+listaEstablecimientos.get(position).getNombre_comercial().toUpperCase());
-            rvItemArticulosResumen=(RecyclerView) convertView.findViewById(R.id.rvArticulosDeEstablecimientoResumen);
+            final Establecimientos establecimiento = listaEstablecimientos.get(position);
+            holder.txtNombreComercialResumen.setText("PEDIR A " + establecimiento.getNombre_comercial().toUpperCase());
 
-            List<PreOrdenesDetalles> newPreOrdenesDetalles=new ArrayList<>();
-            for(int i=0;i<listaPreOrdenesDetalles.size();i++){
-                if(this.listaPreOrdenesDetalles.get(i).getEstablecimiento_id()==this.listaEstablecimientos.get(position).getId()){
+            List<PreOrdenesDetalles> newPreOrdenesDetalles = new ArrayList<>();
+            for (int i = 0; i < this.listaPreOrdenesDetalles.size(); i++) {
+                if (this.listaPreOrdenesDetalles.get(i).getEstablecimiento_id() == this.listaEstablecimientos.get(position).getId()) {
                     newPreOrdenesDetalles.add(this.listaPreOrdenesDetalles.get(i));
-
                 }
             }
-            ChildRecycleView adaptator=new ChildRecycleView(context);
-            rvItemArticulosResumen.setAdapter(adaptator);
-            rvItemArticulosResumen.setHasFixedSize(true);
+
+            ChildRecycleView adaptator = new ChildRecycleView(context);
+            holder.rvItemArticulosResumen.setAdapter(adaptator);
+            holder.rvItemArticulosResumen.setHasFixedSize(true);
             final GridLayoutManager layoutManager = new GridLayoutManager(context, 1);
-            rvItemArticulosResumen.setLayoutManager(layoutManager);
+            holder.rvItemArticulosResumen.setLayoutManager(layoutManager);
             adaptator.adicionarListaArticulos(newPreOrdenesDetalles);
+
             return convertView;
+        }
+        class ViewHolder{
+            TextView txtNombreComercialResumen;
+            RecyclerView rvItemArticulosResumen;
         }
     }
 

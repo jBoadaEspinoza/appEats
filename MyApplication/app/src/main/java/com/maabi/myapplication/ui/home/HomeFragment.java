@@ -52,6 +52,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -206,8 +207,8 @@ public class HomeFragment extends Fragment {
             View view;
             view= LayoutInflater.from(context).inflate(R.layout.item_establecimiento_tipo,null);
             TextView txtDenominacion = view.findViewById(R.id.denominacion);
-            txtDenominacion.setText(this.lista.get(position).getDenominacion());
-            ImageView ivImagen=view.findViewById(R.id.imagen);
+            txtDenominacion.setText(this.lista.get(position).getDenominacion().toUpperCase());
+            CircleImageView ivImagen=view.findViewById(R.id.imagen);
             Glide.with(context)
                     .load(this.lista.get(position).getImagen_url())
                     .centerCrop()

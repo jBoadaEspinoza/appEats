@@ -86,8 +86,6 @@ public class CartaSegunTipoEstablecimientoFragment extends Fragment {
     }
 
     private void cargarDatos() {
-        //Toast.makeText(getContext(),getArguments().getString("establecimiento_tipo_denominacion"),
-        //       Toast.LENGTH_SHORT).show();
 
         ArticulosService service=this.retrofit.create(ArticulosService.class);
         Call<ArticulosResults> called=service.obtenerArticulos("tipo_establecimiento",getArguments().getInt("establecimiento_tipo_id"),-13.840682900935564,-76.2546660316882);
@@ -106,7 +104,6 @@ public class CartaSegunTipoEstablecimientoFragment extends Fragment {
                             Log.i(TAG, "onResponse:"+msg);
                             return;
                         }
-
                         ArticulosAdaptador adaptador = new ArticulosAdaptador(getContext());
                         recyclerView.setAdapter(adaptador);
                         recyclerView.setHasFixedSize(true);
@@ -184,7 +181,6 @@ public class CartaSegunTipoEstablecimientoFragment extends Fragment {
             Articulos articulo = dataset.get(position);
             holder.fullDenominacionTextView.setText(articulo.getFull_denominacion());
             DecimalFormat decFor = new DecimalFormat("#,###.00");
-
             holder.precioPenTextView.setText("S/."+String.valueOf(decFor.format(articulo.getPrecio_pen())));
             holder.nombreComercialTextView.setText(articulo.getEstablecimiento().getNombre_comercial());
             Glide.with(context)
@@ -237,6 +233,7 @@ public class CartaSegunTipoEstablecimientoFragment extends Fragment {
                         SharedPreferences preferences= context.getSharedPreferences("mis_preferencias",Context.MODE_PRIVATE);
                         String ordenesJSON=preferences.getString("proOrdenesDetalles","");
                         SharedPreferences.Editor editor = preferences.edit();
+
                         if(!ordenesJSON.equals("")) {
                             JsonParser jsonParser=new JsonParser();
                             Object obj=jsonParser.parse(ordenesJSON);
@@ -283,7 +280,6 @@ public class CartaSegunTipoEstablecimientoFragment extends Fragment {
                 nombreComercialTextView = (TextView) itemView.findViewById(R.id.nombre_comercial);
                 precioPenTextView = (TextView) itemView.findViewById(R.id.precio_pen);
                 btnAgregarAlCarrito=(Button) itemView.findViewById(R.id.btnAgregarAlCarrito);
-
             }
         }
     }

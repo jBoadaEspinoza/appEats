@@ -1,61 +1,32 @@
 package com.maabi.myapplication.ui.home;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.maabi.myapplication.MainActivity;
 import com.maabi.myapplication.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link FinalizaOrdenFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import org.jetbrains.annotations.NotNull;
+
+
 public class FinalizaOrdenFragment extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public FinalizaOrdenFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment FinalizaOrdenFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static FinalizaOrdenFragment newInstance(String param1, String param2) {
-        FinalizaOrdenFragment fragment = new FinalizaOrdenFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
+    private MainActivity mainActivity;
+    private Button btnIrAMiHistorialDeCompras;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-
     }
 
     @Override
@@ -63,9 +34,36 @@ public class FinalizaOrdenFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView= inflater.inflate(R.layout.fragment_finaliza_orden, container, false);
-        MainActivity mainActivity=(MainActivity)getActivity();
-        mainActivity.getSupportActionBar().hide();
+        //limpiamos el sharedPreference
+        SharedPreferences preferences= getContext().getSharedPreferences("mis_preferencias", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("proOrdenes", "");
+        editor.putString("proOrdenesDetalles", "");
+        editor.commit();
 
+
+        mainActivity=(MainActivity)getActivity();
+        mainActivity.getSupportActionBar().hide();
+        btnIrAMiHistorialDeCompras=(Button) rootView.findViewById(R.id.btnIrAMiHistorialDeCompras);
+        btnIrAMiHistorialDeCompras.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.navigation_historial_de_compra);
+            }
+        });
         return rootView;
+    }
+    @Override
+    public boolean onOptionsItemSelected(@NonNull @NotNull MenuItem item) {
+        switch (item.getItemId()){
+            default:
+                BottomNavigationView bottomNavigationView=(BottomNavigationView) mainActivity.findViewById(R.id.nav_view);
+                if(bottomNavigationView.getVisibility()==View.GONE){
+                    bottomNavigationView.setVisibility(View.VISIBLE);
+                }
+                NavHostFragment.findNavController(this).navigate(R.id.navigation_home);
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
